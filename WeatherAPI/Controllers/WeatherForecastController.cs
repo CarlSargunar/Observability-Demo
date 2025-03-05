@@ -8,6 +8,11 @@ namespace WeatherAPI.Controllers;
 [Route("[controller]")]
 public class WeatherForecastController : ControllerBase
 {
+    private static readonly string[] Summaries = new[]
+    {
+        "Wet", "Rainy", "Drizzly", "Mizzly", "Cats and Dogs", "Spitting", "Bucketing down", "Pissing", "Smirr", "Plothering"
+    };
+
     private readonly ILogger<WeatherForecastController> _logger;
     private readonly IWeatherService _weatherService;
     private readonly IConfiguration _configuration;
@@ -63,9 +68,10 @@ public class WeatherForecastController : ControllerBase
 
 
 
-    public List<WeatherData> LoadWeatherData()
+    private List<WeatherData> LoadWeatherData()
     {
-        var filePath = _configuration["WeatherDataFile"];
+        var relativePath = _configuration["WeatherDataFile"].TrimStart('/', '\\'); ;
+        var filePath = Path.Combine(AppContext.BaseDirectory, relativePath);
 
         if (string.IsNullOrWhiteSpace(filePath) || !System.IO.File.Exists(filePath))
         {
