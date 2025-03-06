@@ -1,0 +1,15 @@
+global using Umbraco.Cms.Web.Website.Controllers;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.Extensions.Options;
+global using Umbraco.Cms.Core.Cache;
+global using Umbraco.Cms.Core.Configuration.Models;
+global using Umbraco.Cms.Core.Logging;
+global using Umbraco.Cms.Core.Mail;
+global using Umbraco.Cms.Core.Models.Email;
+global using Umbraco.Cms.Core.Routing;
+global using Umbraco.Cms.Core.Services;
+global using Umbraco.Cms.Core.Web;
+global using Umbraco.Cms.Infrastructure.Persistence;
+global using Microsoft.AspNetCore.Mvc.ViewEngines;
+global using Umbraco.Cms.Core.Models.PublishedContent;
+global using System.Text.RegularExpressions;
