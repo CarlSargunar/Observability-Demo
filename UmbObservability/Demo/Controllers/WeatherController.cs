@@ -9,9 +9,9 @@ namespace UmbObservability.Demo.Controllers;
 public class WeatherController : RenderController
 {
     private readonly ILogger<ContactController> _logger;
-    private readonly WeatherApiClient _weatherApiClient;
+    private readonly IWeatherApiClient _weatherApiClient;
 
-    public WeatherController(ILogger<ContactController> logger, ICompositeViewEngine compositeViewEngine, IUmbracoContextAccessor umbracoContextAccessor, IVariationContextAccessor variationContextAccessor, ServiceContext context, WeatherApiClient weatherApiClient)
+    public WeatherController(ILogger<ContactController> logger, ICompositeViewEngine compositeViewEngine, IUmbracoContextAccessor umbracoContextAccessor, IVariationContextAccessor variationContextAccessor, ServiceContext context, IWeatherApiClient weatherApiClient)
         : base(logger, compositeViewEngine, umbracoContextAccessor)
     {
         _logger = logger;

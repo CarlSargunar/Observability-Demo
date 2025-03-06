@@ -11,7 +11,7 @@ public static class MyBuilderExtensions
         builder.Services.AddSingleton<IEmailService, EmailService>();
 
         // Weather API Client url is taken from Aspire Service Discovery
-        builder.Services.AddHttpClient<WeatherApiClient>(client =>
+        builder.Services.AddHttpClient<IWeatherApiClient, WeatherApiClient>(client =>
         {
             // This URL uses "https+http://" to indicate HTTPS is preferred over HTTP.
             // Learn more about service discovery scheme resolution at https://aka.ms/dotnet/sdschemes.

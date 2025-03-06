@@ -1,5 +1,6 @@
 ﻿namespace UmbObservability.Demo.Client;
-public class WeatherApiClient
+
+public class WeatherApiClient : IWeatherApiClient
 {
     private readonly HttpClient _httpClient;
 
@@ -27,9 +28,4 @@ public class WeatherApiClient
 
         return forecasts?.ToArray() ?? [];
     }
-}
-
-public record WeatherForecast(DateOnly ForecastDate, int TemperatureC, string? Name, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }

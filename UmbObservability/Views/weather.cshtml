@@ -27,7 +27,7 @@
                     @foreach (var forecast in weatherData)
                     {
                         <tr>
-                            <td>@forecast.ForecastDate</td>
+                            <td>@forecast.ForecastDate.ToString("dd MMMM yyyy")</td>
                             <td>@forecast.TemperatureC °C | @forecast.TemperatureF °F</td>
                             <td>@forecast.Name</td>
                             <td>@forecast.Summary</td>
