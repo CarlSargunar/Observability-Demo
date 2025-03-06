@@ -7,6 +7,6 @@ public class WeatherFormViewModel
     [Required]
     public string Weather { get; set; }
     [Required]
-    public string Location { get; set; }
-    public string Description { get; set; }
+    public int  Temperature{ get; set; }
+    public string Summary { get; set; }
 }

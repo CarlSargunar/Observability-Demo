@@ -32,7 +32,7 @@ public class WeatherFormSurfaceController : SurfaceController
 
     public async Task<IActionResult> Submit(WeatherFormViewModel model)
     {
-        using var activity = ContactActivitySource.ActivitySource.StartActivity("SubmitContactForm");
+        using var activity = ContactActivitySource.ActivitySource.StartActivity("SubmitWeatherForm");
 
         if (!ModelState.IsValid)
         {
@@ -42,7 +42,8 @@ public class WeatherFormSurfaceController : SurfaceController
 
         // Nothing really happening here, just a placeholder for the demo
         await _weatherApiClient.PostWeatherAsync(model);
-        TempData["Message"] = "OK";
+
+        TempData["Message"] = "Weather Submitted!";
 
         return RedirectToCurrentUmbracoPage();
     }

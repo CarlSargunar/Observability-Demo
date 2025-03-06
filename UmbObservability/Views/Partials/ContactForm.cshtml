@@ -1,12 +1,13 @@
 ﻿@using Umbraco.Extensions
 @using Umbraco.SampleSite.Controllers
-@model Umbraco.SampleSite.Models.ContactFormViewModel
+@using UmbObservability.Demo.Controllers
+@model UmbObservability.Demo.Controllers.ContactFormViewModel
 
 @{
     var message = TempData["Message"]?.ToString();
 }
 <div class="form-group">
-@using (Html.BeginUmbracoForm<ContactFormController>(nameof(ContactFormController.Submit)))
+@using (Html.BeginUmbracoForm<ContactFormSurfaceController>(nameof(ContactFormSurfaceController.Submit)))
 {
     <div>
         @Html.TextBoxFor(m => m.Name, new {@class="form-control", placeholder = Html.DisplayNameFor(m => m.Name)})

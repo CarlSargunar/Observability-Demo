@@ -1,6 +1,7 @@
 ﻿@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
 @using Microsoft.AspNetCore.Mvc.Rendering
 @using UmbObservability.Demo.Client
+@using UmbObservability.Demo.Controllers
 @using Umbraco.Extensions
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Weather>
 @{
@@ -12,7 +13,14 @@
 
 <section class="section">
     <div class="container">
-        <div class="table-container">
+        <div class="row">
+            <h2>What's the weather like now?</h2>
+            @{
+                await Html.RenderPartialAsync("Partials/WeatherForm", new WeatherFormViewModel());
+            }
+        </div>
+
+        <div class="row table-container">
             @if (weatherData == null)
             {
                 <h2>Weather Forecast Error</h2>
@@ -23,23 +31,23 @@
                 <h2>Weather Forecast</h2>
                 <table class="weather-table">
                     <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Temperature (°C | °F)</th>
-                            <th>Weather</th>
-                            <th>Summary</th>
-                        </tr>
+                    <tr>
+                        <th>Date</th>
+                        <th>Temperature (°C | °F)</th>
+                        <th>Weather</th>
+                        <th>Summary</th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @foreach (var forecast in weatherData)
-                        {
-                            <tr>
-                                <td>@forecast.ForecastDate.ToString("dd MMMM yyyy")</td>
-                                <td>@forecast.TemperatureC °C | @forecast.TemperatureF °F</td>
-                                <td>@forecast.Name</td>
-                                <td>@forecast.Summary</td>
-                            </tr>
-                        }
+                    @foreach (var forecast in weatherData)
+                    {
+                        <tr>
+                            <td>@forecast.ForecastDate.ToString("dd MMMM yyyy")</td>
+                            <td>@forecast.TemperatureC °C | @forecast.TemperatureF °F</td>
+                            <td>@forecast.Name</td>
+                            <td>@forecast.Summary</td>
+                        </tr>
+                    }
                     </tbody>
                 </table>
             }

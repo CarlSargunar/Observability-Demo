@@ -5,10 +5,12 @@ namespace UmbObservability.Demo.Client;
 public class WeatherApiClient : IWeatherApiClient
 {
     private readonly HttpClient _httpClient;
+    private readonly ILogger<WeatherApiClient> _logger;
 
-    public WeatherApiClient(HttpClient httpClient)
+    public WeatherApiClient(HttpClient httpClient, ILogger<WeatherApiClient> logger)
     {
         _httpClient = httpClient;
+        _logger = logger;
     }
 
     public async Task<WeatherForecast[]> GetWeatherAsync(int maxItems = 10, CancellationToken cancellationToken = default)
@@ -30,11 +32,24 @@ public class WeatherApiClient : IWeatherApiClient
             }
         }
 
+        _logger.LogInformation("Received {0} weather forecasts.", forecasts?.Count ?? 0);
+
         return forecasts?.ToArray() ?? [];
     }
 
-    public Task PostWeatherAsync(WeatherFormViewModel model)
+    public async Task PostWeatherAsync(WeatherFormViewModel model)
     {
-        throw new NotImplementedException();
+        var weatherForecast = new WeatherForecast(
+            DateOnly.FromDateTime(DateTime.Now),
+            model.Temperature,
+            model.Weather,
+            model.Summary
+        );
+
+        _logger.LogInformation("Posting weather forecast: {0}", weatherForecast);
+
+        var response = await _httpClient.PostAsJsonAsync("/weatherforecast", weatherForecast);
+
+        response.EnsureSuccessStatusCode();
     }
 }

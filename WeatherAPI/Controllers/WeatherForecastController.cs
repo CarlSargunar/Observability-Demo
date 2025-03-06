@@ -73,7 +73,19 @@ public class WeatherForecastController : ControllerBase
         return Ok(forecasts);
     }
 
+    [HttpPost(Name = "PostWeatherForecast")]
+    public IActionResult Post([FromBody] WeatherForecast forecast)
+    {
+        if (forecast == null)
+        {
+            return BadRequest("Invalid weather forecast data.");
+        }
 
+        // Here you can add logic to save the forecast data to a database or any other storage
+        _logger.LogInformation("Received weather forecast: {0}", forecast);
+
+        return Ok("Weather forecast received successfully.");
+    }
 
     private List<WeatherData> LoadWeatherData()
     {
