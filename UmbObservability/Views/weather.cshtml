@@ -1,40 +1,38 @@
 ﻿@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
 @using Microsoft.AspNetCore.Mvc.Rendering
+@using UmbObservability.Demo.Client
 @using Umbraco.Extensions
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Weather>
 @{
     Layout = "master.cshtml";
+
+    var weatherData = ViewData["Forecasts"] as IEnumerable<WeatherForecast>;
 }
 @Html.Partial("~/Views/Partials/SectionHeader.cshtml")
 
 <section class="section">
     <div class="container">
         <div class="table-container">
+
             <table class="weather-table">
                 <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Temperature (°C)</th>
-                    <th>Temperature (°F)</th>
-                    <th>Location</th>
-                    <th>Summary</th>
-                </tr>
+                    <tr>
+                        <th>Date</th>
+                        <th>Temperature (°C | °F)</th>
+                        <th>Weather</th>
+                        <th>Summary</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td>2025-03-06</td>
-                    <td>15</td>
-                    <td>59</td>
-                    <td>London</td>
-                    <td>Partly Cloudy</td>
-                </tr>
-                <tr>
-                    <td>2025-03-07</td>
-                    <td>10</td>
-                    <td>50</td>
-                    <td>Manchester</td>
-                    <td>Light Rain</td>
-                </tr>
+                    @foreach (var forecast in weatherData)
+                    {
+                        <tr>
+                            <td>@forecast.ForecastDate</td>
+                            <td>@forecast.TemperatureC °C | @forecast.TemperatureF °F</td>
+                            <td>@forecast.Name</td>
+                            <td>@forecast.Summary</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
         </div>
