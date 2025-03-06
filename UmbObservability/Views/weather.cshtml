@@ -13,13 +13,6 @@
 
 <section class="section">
     <div class="container">
-        <div class="row">
-            <h2>What's the weather like now?</h2>
-            @{
-                await Html.RenderPartialAsync("Partials/WeatherForm", new WeatherFormViewModel());
-            }
-        </div>
-
         <div class="row table-container">
             @if (weatherData == null)
             {
@@ -52,6 +45,13 @@
                 </table>
             }
         </div>
+        <div class="row">
+            <h2>What's the weather like now?</h2>
+            @{
+                await Html.RenderPartialAsync("Partials/WeatherForm", new WeatherFormViewModel());
+            }
+        </div>
+
     </div>
 </section>
 

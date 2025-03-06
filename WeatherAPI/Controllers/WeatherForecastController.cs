@@ -24,11 +24,9 @@ public class WeatherForecastController : ControllerBase
     [HttpGet(Name = "GetWeatherForecast")]
     public IActionResult Get()
     {
-        var range = Random.Shared.Next(5, 30);
-
         var weatherData = LoadWeatherData();
 
-        var forecasts = Enumerable.Range(1, range).Select(index =>
+        var forecasts = Enumerable.Range(1, 10).Select(index =>
         {
             // Hack to get some random weather
             var randomWeather = weatherData[Random.Shared.Next(weatherData.Count)];
@@ -53,7 +51,7 @@ public class WeatherForecastController : ControllerBase
         if (hotDays > coldDays)
         {
             // Sleep for a random amount of time between 0.3 and 0.8 seconds
-            var sleep = Random.Shared.Next(300, 800);
+            var sleep = Random.Shared.Next(300, 1500);
             Thread.Sleep(sleep);
             int heatwaveDays = hotDays - coldDays;
             _logger.LogWarning("Heatwave!!! Things are slowing down: {0}", heatwaveDays);
