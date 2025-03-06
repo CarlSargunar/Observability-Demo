@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\UmbObservability\UmbObservability.csproj" />
     <ProjectReference Include="..\WeatherAPI\WeatherAPI.csproj" />
   </ItemGroup>
 
