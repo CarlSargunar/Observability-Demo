@@ -54,14 +54,8 @@ public class WeatherForecastController : ControllerBase
         _logger.LogInformation("Generated {0} weather reports. {1} hot days, {2} cold days.", forecasts.Length, hotDays, coldDays);
 
         // Calling another service
-        _weatherService.ReactToTemperature(maxTemp);
-        _weatherService.ReactToTrend(hotDays, coldDays);
-
-        //// Record Metrics
-        //WeatherMetrics.Count.Add(1);
-        //WeatherMetrics.MaxTemp.Record(maxTemp);
-        //WeatherMetrics.MinTemp.Record(minTemp);
-
+        _weatherService.CheckTemperature(maxTemp);
+        _weatherService.CheckTemperatureTrend(hotDays, coldDays);
 
         return forecasts;
     }

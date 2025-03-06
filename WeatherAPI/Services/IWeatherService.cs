@@ -2,6 +2,6 @@
 
 public interface IWeatherService
 {
-    void ReactToTemperature(int maxTemp);
-    void ReactToTrend(int hotDays, int coldDays);
+    void CheckTemperature(int maxTemp);
+    void CheckTemperatureTrend(int hotDays, int coldDays);
 }

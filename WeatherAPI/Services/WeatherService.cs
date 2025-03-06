@@ -15,6 +15,7 @@ public class WeatherService : IWeatherService
         if (maxTemp > 28)
         {
             _logger.LogCritical("Overheating!!! Temp : {0}", maxTemp);
+            throw new Exception("Something has gone wrong - this is an artificial error");
         }
     }
 

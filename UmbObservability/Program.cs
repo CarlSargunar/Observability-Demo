@@ -12,15 +12,12 @@ builder.Host.UseSerilog();
 
 builder.AddServiceDefaults();
 
-
 builder.CreateUmbracoBuilder()
     .AddBackOffice()
     .AddWebsite()
     .AddComposers()
     .AddCustomServices() // Add custom demo middleware
     .Build();
-
-
 
 WebApplication app = builder.Build();
 
