@@ -1,4 +1,4 @@
-﻿using UmbObservability.Demo.ContactForm;
+﻿using UmbObservability.Demo.Controllers;
 using UmbObservability.Demo.OTel;
 
 namespace UmbObservability.Demo.Services;
@@ -19,7 +19,7 @@ public class EmailService : IEmailService
         _globalSettings = globalSettings;
     }
 
-    public async Task<string> SendEmail(MyContactFormViewModel model)
+    public async Task<string> SendEmail(ContactFormViewModel model)
     {
         using var activity = ContactActivitySource.ActivitySource.StartActivity("SendEmail");
         activity?.SetTag("service", nameof(SendEmail));

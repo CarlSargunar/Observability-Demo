@@ -1,16 +1,17 @@
+using UmbObservability.Demo.Client;
 using UmbObservability.Demo.OTel;
 using UmbObservability.Demo.Services;
 
-namespace UmbObservability.Demo.ContactForm;
+namespace UmbObservability.Demo.Controllers;
 
-public class MyContactFormSurfaceController : SurfaceController
+public class WeatherFormSurfaceController : SurfaceController
 {
     private readonly IEmailSender _emailSender;
     private readonly IOptions<GlobalSettings> _globalSettings;
-    private readonly ILogger<MyContactFormSurfaceController> _logger;
-    private readonly IEmailService _emailService;
+    private readonly ILogger<WeatherFormSurfaceController> _logger;
+    private readonly IWeatherApiClient _weatherApiClient;
 
-    public MyContactFormSurfaceController(
+    public WeatherFormSurfaceController(
         IUmbracoContextAccessor umbracoContextAccessor,
         IUmbracoDatabaseFactory databaseFactory,
         ServiceContext services,
@@ -19,29 +20,29 @@ public class MyContactFormSurfaceController : SurfaceController
         IPublishedUrlProvider publishedUrlProvider,
         IEmailSender emailSender,
         IOptions<GlobalSettings> globalSettings, 
-        ILogger<MyContactFormSurfaceController> logger,
-        IEmailService emailService)
+        ILogger<WeatherFormSurfaceController> logger,
+        IWeatherApiClient weatherApiClient)
         : base(umbracoContextAccessor, databaseFactory, services, appCaches, profilingLogger, publishedUrlProvider)
     {
         _emailSender = emailSender;
         _globalSettings = globalSettings;
         _logger = logger;
-        _emailService = emailService;
+        _weatherApiClient = weatherApiClient;
     }
 
-    public async Task<IActionResult> Submit(MyContactFormViewModel model)
+    public async Task<IActionResult> Submit(WeatherFormViewModel model)
     {
         using var activity = ContactActivitySource.ActivitySource.StartActivity("SubmitContactForm");
-        activity?.SetTag("controller", nameof(Submit));
-        activity?.SetTag("form.name", model.Name);
-        activity?.SetTag("form.email", model.Email);
 
         if (!ModelState.IsValid)
         {
+            TempData["Message"] = "Please fill in all required fields";
             return CurrentUmbracoPage();
         }
 
-        TempData["Message"] = await _emailService.SendEmail(model);
+        // Nothing really happening here, just a placeholder for the demo
+        await _weatherApiClient.PostWeatherAsync(model);
+        TempData["Message"] = "OK";
 
         return RedirectToCurrentUmbracoPage();
     }

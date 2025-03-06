@@ -6,7 +6,14 @@
 
 ## References
 
-
+- Open Telemetry
+    - https://opentelemetry.io/
+- Open Telemetry .NET
+    - https://opentelemetry.io/docs/languages/net/
+- .NET Aspire
+    - https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview
+- Aspire with Grafana and Prometheus
+    - https://devblogs.microsoft.com/dotnet/introducing-aspnetcore-metrics-and-grafana-dashboards-in-dotnet-8/
 
 
 ## Troubleshooting

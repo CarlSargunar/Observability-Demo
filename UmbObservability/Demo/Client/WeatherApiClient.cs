@@ -1,4 +1,6 @@
-﻿namespace UmbObservability.Demo.Client;
+﻿using UmbObservability.Demo.Controllers;
+
+namespace UmbObservability.Demo.Client;
 
 public class WeatherApiClient : IWeatherApiClient
 {
@@ -13,7 +15,9 @@ public class WeatherApiClient : IWeatherApiClient
     {
         List<WeatherForecast>? forecasts = null;
 
-        await foreach (var forecast in _httpClient.GetFromJsonAsAsyncEnumerable<WeatherForecast>("/weatherforecast", cancellationToken))
+        var forecastData = _httpClient.GetFromJsonAsAsyncEnumerable<WeatherForecast>("/weatherforecast", cancellationToken);
+
+        await foreach (var forecast in forecastData.WithCancellation(cancellationToken))
         {
             if (forecasts?.Count >= maxItems)
             {
@@ -27,5 +31,10 @@ public class WeatherApiClient : IWeatherApiClient
         }
 
         return forecasts?.ToArray() ?? [];
+    }
+
+    public Task PostWeatherAsync(WeatherFormViewModel model)
+    {
+        throw new NotImplementedException();
     }
 }

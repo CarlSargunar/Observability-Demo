@@ -1,8 +1,8 @@
-﻿using UmbObservability.Demo.ContactForm;
+﻿using UmbObservability.Demo.Controllers;
 
 namespace UmbObservability.Demo.Services;
 
 public interface IEmailService
 {
-    Task<string> SendEmail(MyContactFormViewModel model);
+    Task<string> SendEmail(ContactFormViewModel model);
 }

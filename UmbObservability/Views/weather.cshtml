@@ -13,30 +13,37 @@
 <section class="section">
     <div class="container">
         <div class="table-container">
-
-            <table class="weather-table">
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Temperature (°C | °F)</th>
-                        <th>Weather</th>
-                        <th>Summary</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var forecast in weatherData)
-                    {
+            @if (weatherData == null)
+            {
+                <h2>Weather Forecast Error</h2>
+                <p>Weather data is not available.</p>
+            }
+            else
+            {
+                <h2>Weather Forecast</h2>
+                <table class="weather-table">
+                    <thead>
                         <tr>
-                            <td>@forecast.ForecastDate.ToString("dd MMMM yyyy")</td>
-                            <td>@forecast.TemperatureC °C | @forecast.TemperatureF °F</td>
-                            <td>@forecast.Name</td>
-                            <td>@forecast.Summary</td>
+                            <th>Date</th>
+                            <th>Temperature (°C | °F)</th>
+                            <th>Weather</th>
+                            <th>Summary</th>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var forecast in weatherData)
+                        {
+                            <tr>
+                                <td>@forecast.ForecastDate.ToString("dd MMMM yyyy")</td>
+                                <td>@forecast.TemperatureC °C | @forecast.TemperatureF °F</td>
+                                <td>@forecast.Name</td>
+                                <td>@forecast.Summary</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
         </div>
-
     </div>
 </section>
 

@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace UmbObservability.Demo.ContactForm;
+namespace UmbObservability.Demo.Controllers;
 
-public class MyContactFormViewModel
+public class ContactFormViewModel
 {
     [Required]
     public string Name { get; set; }
@@ -12,4 +12,3 @@ public class MyContactFormViewModel
     public string Message { get; set; }
     public string? Subject { get; set; }
 }
-

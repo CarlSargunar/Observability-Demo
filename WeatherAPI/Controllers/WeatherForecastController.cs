@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using WeatherAPI.Models;
-using WeatherAPI.Services;
 
 namespace WeatherAPI.Controllers;
 
@@ -14,18 +13,16 @@ public class WeatherForecastController : ControllerBase
     };
 
     private readonly ILogger<WeatherForecastController> _logger;
-    private readonly IWeatherService _weatherService;
     private readonly IConfiguration _configuration;
 
-    public WeatherForecastController(ILogger<WeatherForecastController> logger, IWeatherService weatherService, IConfiguration configuration)
+    public WeatherForecastController(ILogger<WeatherForecastController> logger, IConfiguration configuration)
     {
         _logger = logger;
-        _weatherService = weatherService;
         _configuration = configuration;
     }
 
     [HttpGet(Name = "GetWeatherForecast")]
-    public IEnumerable<WeatherForecast> Get()
+    public IActionResult Get()
     {
         var range = Random.Shared.Next(5, 30);
 
@@ -48,16 +45,32 @@ public class WeatherForecastController : ControllerBase
         var hotDays = forecasts.Count(x => x.TemperatureC > 20);
         var coldDays = forecasts.Count(x => x.TemperatureC < 5);
         var maxTemp = forecasts.Max(x => x.TemperatureC);
-        var minTemp = forecasts.Min(x => x.TemperatureC);
 
         // Some logging
         _logger.LogInformation("Generated {0} weather reports. {1} hot days, {2} cold days.", forecasts.Length, hotDays, coldDays);
 
-        // Calling another service
-        _weatherService.CheckTemperature(maxTemp);
-        _weatherService.CheckTemperatureTrend(hotDays, coldDays);
+        // Do some made-up logging and exceptions for the demo
+        if (hotDays > coldDays)
+        {
+            // Sleep for a random amount of time between 0.3 and 0.8 seconds
+            var sleep = Random.Shared.Next(300, 800);
+            Thread.Sleep(sleep);
+            int heatwaveDays = hotDays - coldDays;
+            _logger.LogWarning("Heatwave!!! Things are slowing down: {0}", heatwaveDays);
+        }
 
-        return forecasts;
+        if (maxTemp > 28)
+        {
+            _logger.LogCritical("Overheating!!! Temp : {0}", maxTemp);
+            return StatusCode(500, new ProblemDetails
+            {
+                Title = "Internal Server Error",
+                Detail = $"Temperature too high: {maxTemp}C",
+                Status = 500
+            });
+        }
+
+        return Ok(forecasts);
     }
 
 
@@ -83,4 +96,5 @@ public class WeatherForecastController : ControllerBase
 
         return records;
     }
+
 }
