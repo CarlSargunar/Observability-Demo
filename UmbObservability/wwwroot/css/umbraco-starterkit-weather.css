@@ -1,0 +1,42 @@
+.weather-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #ccc;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    background-color: #fff;
+}
+
+/* Header row using your header colour */
+.weather-table thead {
+    background-color: #e7afa3;
+    color: #4a1f1a; /* Darker colour for contrast */
+    text-align: left;
+}
+
+.weather-table th,
+.weather-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+/* Alternating row colours for readability */
+.weather-table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9;
+}
+
+.weather-table tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+/* Hover effect for better UX */
+.weather-table tbody tr:hover {
+    background-color: #f0e2df;
+    cursor: pointer;
+}
+
+/* Optional container to ensure responsiveness */
+.table-container {
+    max-width: 100%;
+    overflow-x: auto;
+}

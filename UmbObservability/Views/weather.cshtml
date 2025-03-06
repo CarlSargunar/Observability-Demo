@@ -1,5 +1,45 @@
-﻿@using Umbraco.Cms.Web.Common.PublishedModels;
-@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+﻿@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Umbraco.Extensions
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Weather>
 @{
-	Layout = null;
+    Layout = "master.cshtml";
 }
+@Html.Partial("~/Views/Partials/SectionHeader.cshtml")
+
+<section class="section">
+    <div class="container">
+        <div class="table-container">
+            <table class="weather-table">
+                <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Temperature (°C)</th>
+                    <th>Temperature (°F)</th>
+                    <th>Location</th>
+                    <th>Summary</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>2025-03-06</td>
+                    <td>15</td>
+                    <td>59</td>
+                    <td>London</td>
+                    <td>Partly Cloudy</td>
+                </tr>
+                <tr>
+                    <td>2025-03-07</td>
+                    <td>10</td>
+                    <td>50</td>
+                    <td>Manchester</td>
+                    <td>Light Rain</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</section>
+
+<link rel="stylesheet" href="@Url.Content("~/css/umbraco-starterkit-weather.css")" />

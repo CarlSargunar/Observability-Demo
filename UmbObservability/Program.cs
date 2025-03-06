@@ -1,12 +1,26 @@
+using OpenTelemetry.Resources;
+using OpenTelemetry.Trace;
+using Serilog;
+using Serilog.Events;
+using UmbObservability.Demo.Middleware;
+
+
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
+builder.Host.UseSerilog();
+
 builder.AddServiceDefaults();
+
 
 builder.CreateUmbracoBuilder()
     .AddBackOffice()
     .AddWebsite()
     .AddComposers()
+    .AddCustomServices() // Add custom demo middleware
     .Build();
+
+
 
 WebApplication app = builder.Build();
 
