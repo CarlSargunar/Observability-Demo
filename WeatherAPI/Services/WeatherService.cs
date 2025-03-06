@@ -10,7 +10,7 @@ public class WeatherService : IWeatherService
     }
 
 
-    public void ReactToTemperature(int maxTemp)
+    public void CheckTemperature(int maxTemp)
     {
         if (maxTemp > 28)
         {
@@ -19,7 +19,7 @@ public class WeatherService : IWeatherService
         }
     }
 
-    public void ReactToTrend(int hotDays, int coldDays)
+    public void CheckTemperatureTrend(int hotDays, int coldDays)
     {
         if (hotDays > coldDays)
         {
