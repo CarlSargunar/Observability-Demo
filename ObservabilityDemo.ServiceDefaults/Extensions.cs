@@ -56,7 +56,7 @@ public static class Extensions
                     .AddHttpClientInstrumentation()
                     .AddRuntimeInstrumentation()
                     // Add Custom Metric - Demo:2
-                    .AddMeter("UmbObservability.Counts");
+                    .AddMeter("UmbracoMetrics");
             })
             .WithTracing(tracing =>
             {

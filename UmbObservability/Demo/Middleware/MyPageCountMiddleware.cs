@@ -16,11 +16,15 @@ public class MyPageCountMiddleware
     public async Task InvokeAsync(HttpContext context)
     {
         // Check if the request is for static assets (CSS/JS/images)
-        if (context.Request.Method == HttpMethods.Get && !IsStaticAsset(context.Request.Path))
+        if ((context.Request.Method == HttpMethods.Get || context.Request.Method == HttpMethods.Post) && !IsStaticAsset(context.Request.Path))
         {
             _logger.LogInformation($"Request for {context.Request.Path} received");
             var urlName = context.Request.Path.Value.ToLowerInvariant();
-            PageCountMetric.PageCounter.Add(1, new KeyValuePair<string, object>("page.url", urlName));
+            // Increment metrics, and pass additional information in context
+            PageCountMetric.PageCounter.Add(1,
+                new KeyValuePair<string, object>("page.url", urlName),
+                new KeyValuePair<string, object>("page.method]", context.Request.Method),
+                new KeyValuePair<string, object>("page.user_agent", context.Request.Headers["User-Agent"].ToString())); 
         }
 
         // Call the next middleware in the pipeline
