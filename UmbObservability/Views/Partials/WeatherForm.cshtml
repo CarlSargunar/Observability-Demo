@@ -1,0 +1,31 @@
+﻿@using Umbraco.Extensions
+@using Umbraco.SampleSite.Controllers
+@using UmbObservability.Demo.Controllers
+@model UmbObservability.Demo.Controllers.WeatherFormViewModel
+
+
+@{
+    var message = TempData["Message"]?.ToString();
+}
+<div class="form-group">
+    @using (Html.BeginUmbracoForm<WeatherFormSurfaceController>(nameof(WeatherFormSurfaceController.Submit)))
+    {
+        <div>
+            @Html.TextBoxFor(m => m.Weather, new {@class="form-control", placeholder = Html.DisplayNameFor(m => m.Weather)})
+            @Html.ValidationMessageFor(m => m.Weather)
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.Temperature, new {@class="form-control", placeholder = Html.DisplayNameFor(m => m.Temperature)})
+            @Html.ValidationMessageFor(m => m.Temperature)
+        </div>
+        <div>
+            @Html.TextAreaFor(m => m.Summary, new {@class="form-control", placeholder = Html.DisplayNameFor(m => m.Summary)})
+            @Html.ValidationMessageFor(m => m.Summary)
+        </div>
+        <input type="submit" name="Submit" value="Submit"/>
+        @if (!string.IsNullOrEmpty(message))
+        {
+            @message
+        }
+    }
+</div>
