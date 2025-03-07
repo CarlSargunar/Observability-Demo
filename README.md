@@ -1,6 +1,39 @@
 # Observability-Demo
 
+A Sample app demonstrating wiring up Observability using Open Telemetry to an Umbraco app, using .NET Aspire.
 
+## Demo Notes
+
+Add the following to ServiceDefaults.Extensions.cs, in the ConfigureOpenTelemetry method
+
+
+```csharp
+builder.Logging.AddOpenTelemetry(logging =>
+        {
+            logging.IncludeFormattedMessage = true;
+            logging.IncludeScopes = true;
+        });
+
+        builder.Services.AddOpenTelemetry()
+            .WithMetrics(metrics =>
+            {
+                metrics.AddAspNetCoreInstrumentation()
+                    .AddHttpClientInstrumentation()
+                    .AddRuntimeInstrumentation()
+                    // Add Custom Metric - Demo:2
+                    .AddMeter("UmbracoMetrics");
+            })
+            .WithTracing(tracing =>
+            {
+                tracing.AddSource(builder.Environment.ApplicationName)
+                    .AddAspNetCoreInstrumentation()
+                    // Uncomment the following line to enable gRPC instrumentation (requires the OpenTelemetry.Instrumentation.GrpcNetClient package)
+                    //.AddGrpcClientInstrumentation()
+                    .AddHttpClientInstrumentation();
+            });
+
+        builder.AddOpenTelemetryExporters();
+```
 
 
 

@@ -21,6 +21,9 @@ public class MyPageCountMiddleware
             _logger.LogInformation($"Request for {context.Request.Path} received");
             var urlName = context.Request.Path.Value.ToLowerInvariant();
             // Increment metrics, and pass additional information in context
+
+            // Demo: 4 - Increment the page count metric
+
             PageCountMetric.PageCounter.Add(1,
                 new KeyValuePair<string, object>("page.url", urlName),
                 new KeyValuePair<string, object>("page.method]", context.Request.Method),
