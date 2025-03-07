@@ -8,8 +8,8 @@
 
 - Open Telemetry
     - https://opentelemetry.io/
-- Open Telemetry .NET
     - https://opentelemetry.io/docs/languages/net/
+    - https://github.com/open-telemetry
 - .NET Aspire
     - https://learn.microsoft.com/en-us/dotnet/aspire/get-started/aspire-overview
 - Aspire with Grafana and Prometheus

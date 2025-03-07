@@ -17,7 +17,7 @@ public static class Extensions
 {
     public static TBuilder AddServiceDefaults<TBuilder>(this TBuilder builder) where TBuilder : IHostApplicationBuilder
     {
-        builder.ConfigureOpenTelemetry();
+        builder.ConfigureOpenTelemetry(); // DEMO:1
 
         builder.AddDefaultHealthChecks();
 
@@ -54,7 +54,9 @@ public static class Extensions
             {
                 metrics.AddAspNetCoreInstrumentation()
                     .AddHttpClientInstrumentation()
-                    .AddRuntimeInstrumentation();
+                    .AddRuntimeInstrumentation()
+                    // Add Custom Metric - Demo:2
+                    .AddMeter("UmbObservability.Counts");
             })
             .WithTracing(tracing =>
             {
